@@ -50,7 +50,7 @@ void *WorkloadThread(void *argument) {
 
 int main(void) {
     // Variables
-    long N_values[3] = {32, 64, 80};
+    long N_values[3] = {100000000, 1000000000, 10000000000};
     int NUM_THREADS[3] = {2, 4, 8};
     int max_threads = NUM_THREADS[LEN(NUM_THREADS)-1];
     double res = 0.0;
@@ -93,10 +93,10 @@ int main(void) {
                 ret = pthread_create(&hThreads[th_idx], NULL, WorkloadThread, hThread_args[l]);
                 if (ret != 0) { log_printf(log, "Thread creation failed\n"); }
 
-
+                /*
                 log_printf(log, "factor = %d\tth_idx = %d\tl = %d\tbegin = %d\tend=%d\n", factor, th_idx, l, 
                     hThread_args[l][0], hThread_args[l][1]);
-
+                */
                 
                 th_idx++; // increment thread index at end
             }

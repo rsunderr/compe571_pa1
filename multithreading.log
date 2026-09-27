@@ -1,53 +1,11 @@
 STARTING multithreading
-factor = 16	th_idx = 0	l = 0	begin = 0	end=16
-factor = 16	th_idx = 1	l = 1	begin = 16	end=32
-CASE: multithreading	N = 32	NUM_THREADS = 2	RES = 496	TIME = 0.000054
-factor = 8	th_idx = 2	l = 0	begin = 0	end=8
-factor = 8	th_idx = 3	l = 1	begin = 8	end=16
-factor = 8	th_idx = 4	l = 2	begin = 16	end=24
-factor = 8	th_idx = 5	l = 3	begin = 24	end=32
-CASE: multithreading	N = 32	NUM_THREADS = 4	RES = 496	TIME = 0.000060
-factor = 4	th_idx = 6	l = 0	begin = 0	end=4
-factor = 4	th_idx = 7	l = 1	begin = 4	end=8
-factor = 4	th_idx = 8	l = 2	begin = 8	end=12
-factor = 4	th_idx = 9	l = 3	begin = 12	end=16
-factor = 4	th_idx = 10	l = 4	begin = 16	end=20
-factor = 4	th_idx = 11	l = 5	begin = 20	end=24
-factor = 4	th_idx = 12	l = 6	begin = 24	end=28
-factor = 4	th_idx = 13	l = 7	begin = 28	end=32
-CASE: multithreading	N = 32	NUM_THREADS = 8	RES = 496	TIME = 0.000142
-factor = 32	th_idx = 14	l = 0	begin = 0	end=32
-factor = 32	th_idx = 15	l = 1	begin = 32	end=64
-CASE: multithreading	N = 64	NUM_THREADS = 2	RES = 2016	TIME = 0.000053
-factor = 16	th_idx = 16	l = 0	begin = 0	end=16
-factor = 16	th_idx = 17	l = 1	begin = 16	end=32
-factor = 16	th_idx = 18	l = 2	begin = 32	end=48
-factor = 16	th_idx = 19	l = 3	begin = 48	end=64
-CASE: multithreading	N = 64	NUM_THREADS = 4	RES = 2016	TIME = 0.000133
-factor = 8	th_idx = 20	l = 0	begin = 0	end=8
-factor = 8	th_idx = 21	l = 1	begin = 8	end=16
-factor = 8	th_idx = 22	l = 2	begin = 16	end=24
-factor = 8	th_idx = 23	l = 3	begin = 24	end=32
-factor = 8	th_idx = 24	l = 4	begin = 32	end=40
-factor = 8	th_idx = 25	l = 5	begin = 40	end=48
-factor = 8	th_idx = 26	l = 6	begin = 48	end=56
-factor = 8	th_idx = 27	l = 7	begin = 56	end=64
-CASE: multithreading	N = 64	NUM_THREADS = 8	RES = 2016	TIME = 0.000123
-factor = 40	th_idx = 28	l = 0	begin = 0	end=40
-factor = 40	th_idx = 29	l = 1	begin = 40	end=80
-CASE: multithreading	N = 80	NUM_THREADS = 2	RES = 3160	TIME = 0.000039
-factor = 20	th_idx = 30	l = 0	begin = 0	end=20
-factor = 20	th_idx = 31	l = 1	begin = 20	end=40
-factor = 20	th_idx = 32	l = 2	begin = 40	end=60
-factor = 20	th_idx = 33	l = 3	begin = 60	end=80
-CASE: multithreading	N = 80	NUM_THREADS = 4	RES = 3160	TIME = 0.000059
-factor = 10	th_idx = 34	l = 0	begin = 0	end=10
-factor = 10	th_idx = 35	l = 1	begin = 10	end=20
-factor = 10	th_idx = 36	l = 2	begin = 20	end=30
-factor = 10	th_idx = 37	l = 3	begin = 30	end=40
-factor = 10	th_idx = 38	l = 4	begin = 40	end=50
-factor = 10	th_idx = 39	l = 5	begin = 50	end=60
-factor = 10	th_idx = 40	l = 6	begin = 60	end=70
-factor = 10	th_idx = 41	l = 7	begin = 70	end=80
-CASE: multithreading	N = 80	NUM_THREADS = 8	RES = 3160	TIME = 0.000148
+CASE: multithreading	N = 100000000	NUM_THREADS = 2	RES = 4999999950000000	TIME = 0.217661
+CASE: multithreading	N = 100000000	NUM_THREADS = 4	RES = 4999999950000000	TIME = 0.103041
+CASE: multithreading	N = 100000000	NUM_THREADS = 8	RES = 4999999950000000	TIME = 0.052080
+CASE: multithreading	N = 1000000000	NUM_THREADS = 2	RES = 499999999075959424	TIME = 2.056748
+CASE: multithreading	N = 1000000000	NUM_THREADS = 4	RES = 499999999098792256	TIME = 1.029294
+CASE: multithreading	N = 1000000000	NUM_THREADS = 8	RES = 499999999147278016	TIME = 0.515855
+CASE: multithreading	N = 10000000000	NUM_THREADS = 2	RES = 994142226082480128	TIME = 2.902093
+CASE: multithreading	N = 10000000000	NUM_THREADS = 4	RES = -962254724985074432	TIME = 10.301084
+CASE: multithreading	N = 10000000000	NUM_THREADS = 8	RES = 1481536152629431296	TIME = 5.147643
 FINISHED multithreading
