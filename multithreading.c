@@ -1,6 +1,4 @@
 #include <stdio.h>
-#include <unistd.h>
-#include <signal.h>
 #include <pthread.h>
 #include <time.h>
 #include <stdarg.h>
@@ -11,6 +9,7 @@ NUM_THREADS = {2, 4, 8}
 NUM_TASKS = {2, 4, 8}
 */
 
+#define LEN(array) (sizeof(array) / sizeof((array)[0])) // get size of array
 #define CASE "multithreading"
 
 // Log outputs to terminal and add to log file
@@ -31,17 +30,27 @@ void log_printf(FILE *log, const char *format, ...) {
 }
 
 // Calculate the sum of variables from 0 up to N (not inclusive)
-int WORKLOAD(long start, long N) {
-    int sum = 0;
+double WORKLOAD(long start, long N) {
+    double sum = 0.0; // using doubles bc long long too small
     for (long i = start; i < N; i++) {
         sum += i;
     }
     return sum;
 }
 
+// demo fxn
+void *ChildThread(void *argument) {
+    int i;
+    for(i=1;i<=100;++i) {
+        printf(" Child Count - %d\n",i);
+    }
+    pthread_exit(0);
+}
+
 int main(void) {
     // Variables
     long N_values[3] = {100000000, 1000000000, 10000000000};
+    double res = 0.0;
     int NUM_THREADS[3] = {2, 4, 8};
     int NUM_TASKS[3] = {2, 4, 8};
     double duration = 0.0;
@@ -53,12 +62,23 @@ int main(void) {
         perror("fopen");
         return 1;
     }
-    
+
     log_printf(log, "STARTING %s\n", CASE);
+
+    pthread_t hThread;
+    int ret = pthread_create(&hThread, NULL, ChildThread, NULL);
+    if(ret < 0) {
+        printf("Thread Creation Failed\n");
+        return 1;
+    }
+    pthread_join(hThread, NULL);
+    printf("Parent is continuing....\n");
+
     // Main loop
-    for (int j = 0; j < 3; j++) {
-        for (int k = 0; k < 3; k++) {
-            for (int l = 0; l < 3; l++) {
+    /*
+    for (int j = 0; j < LEN(N_values); j++) {x
+        for (int k = 0; k < LEN(NUM_THREADS); k++) {
+            for (int l = 0; l < LEN(NUM_TASKS); l++) {
                 // Call fxn
                 clock_gettime(CLOCK_MONOTONIC, &start); // get start time
                 WORKLOAD(0, N_values[j]);
@@ -74,6 +94,7 @@ int main(void) {
             }
         }
     }
+    */
 
     log_printf(log, "FINISHED %s\n", CASE);
     fclose(log);

@@ -8,6 +8,7 @@ NUM_THREADS = {2, 4, 8}
 NUM_TASKS = {2, 4, 8}
 */
 
+#define LEN(array) (sizeof(array) / sizeof((array)[0])) // get size of array
 #define CASE "baseline"
 
 // Log outputs to terminal and add to log file
@@ -28,8 +29,8 @@ void log_printf(FILE *log, const char *format, ...) {
 }
 
 // Calculate the sum of variables from 0 up to N (not inclusive)
-int WORKLOAD(long start, long N) {
-    int sum = 0;
+double WORKLOAD(long start, long N) {
+    double sum = 0.0; // using doubles bc long long too small
     for (long i = start; i < N; i++) {
         sum += i;
     }
@@ -39,6 +40,7 @@ int WORKLOAD(long start, long N) {
 int main(void) {
     // Variables
     long N_values[3] = {100000000, 1000000000, 10000000000};
+    double res = 0.0;
     double duration = 0.0;
     struct timespec start, end;
 
@@ -51,10 +53,10 @@ int main(void) {
     
     // Begin main loop
     log_printf(log, "STARTING %s\n", CASE);
-    for (int j = 0; j < 3; j++) {
+    for (int j = 0; j < LEN(N_values); j++) {
         // Call fxn
         clock_gettime(CLOCK_MONOTONIC, &start); // get start time
-        WORKLOAD(0, N_values[j]);
+        res = WORKLOAD(0, N_values[j]);
         clock_gettime(CLOCK_MONOTONIC, &end); // get end time
 
         // Calculate time passed
@@ -62,7 +64,7 @@ int main(void) {
         duration = (duration + (end.tv_nsec - start.tv_nsec)) * 1e-9;
 
         // Log results
-        log_printf(log, "CASE: %s\tN = %ld\tTIME = %lf\n", CASE, N_values[j], duration);
+        log_printf(log, "CASE: %s\tN = %ld\tRES = %.0f\tTIME = %lf\n", CASE, N_values[j], res, duration);
     }
 
     log_printf(log, "FINISHED %s\n", CASE);
