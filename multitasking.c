@@ -62,7 +62,7 @@ int main(void) {
 
         int num_times_to_fork = log2(NUM_TASKS[j]);
         int start_number = 0;
-        int end_number = N[j];
+        int end_number = N_values[j];
         int pids[] = zeros(num_times_to_fork);
         int p[2];
         bool parent = true;
@@ -96,10 +96,10 @@ int main(void) {
         // close write end of pipe for parent task
         if (parent) close(p[1]);
           
-        // add sum to pipe and end task if not the original parent
-        if !(parent){
+        // add sum to pipe and end tasks if not the original parent
+        if (!parent){
           write(p[1], &res, sizeof(double));
-          close(p[1]);
+          wait();
           return 0;
         }
 
