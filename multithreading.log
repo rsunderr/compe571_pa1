@@ -1,2 +1,53 @@
 STARTING multithreading
+factor = 16	idx = 0	l = 1	begin = 0	end=15
+factor = 16	idx = 1	l = 2	begin = 16	end=31
+CASE: multithreading	N = 32	NUM_THREADS = 2	TIME = 0.000009
+factor = 8	idx = 2	l = 1	begin = 0	end=7
+factor = 8	idx = 3	l = 2	begin = 8	end=15
+factor = 8	idx = 4	l = 3	begin = 16	end=23
+factor = 8	idx = 5	l = 4	begin = 24	end=31
+CASE: multithreading	N = 32	NUM_THREADS = 4	TIME = 0.000013
+factor = 4	idx = 6	l = 1	begin = 0	end=3
+factor = 4	idx = 7	l = 2	begin = 4	end=7
+factor = 4	idx = 8	l = 3	begin = 8	end=11
+factor = 4	idx = 9	l = 4	begin = 12	end=15
+factor = 4	idx = 10	l = 5	begin = 16	end=19
+factor = 4	idx = 11	l = 6	begin = 20	end=23
+factor = 4	idx = 12	l = 7	begin = 24	end=27
+factor = 4	idx = 13	l = 8	begin = 28	end=31
+CASE: multithreading	N = 32	NUM_THREADS = 8	TIME = 0.000024
+factor = 32	idx = 14	l = 1	begin = 0	end=31
+factor = 32	idx = 15	l = 2	begin = 32	end=63
+CASE: multithreading	N = 64	NUM_THREADS = 2	TIME = 0.000006
+factor = 16	idx = 16	l = 1	begin = 0	end=15
+factor = 16	idx = 17	l = 2	begin = 16	end=31
+factor = 16	idx = 18	l = 3	begin = 32	end=47
+factor = 16	idx = 19	l = 4	begin = 48	end=63
+CASE: multithreading	N = 64	NUM_THREADS = 4	TIME = 0.000011
+factor = 8	idx = 20	l = 1	begin = 0	end=7
+factor = 8	idx = 21	l = 2	begin = 8	end=15
+factor = 8	idx = 22	l = 3	begin = 16	end=23
+factor = 8	idx = 23	l = 4	begin = 24	end=31
+factor = 8	idx = 24	l = 5	begin = 32	end=39
+factor = 8	idx = 25	l = 6	begin = 40	end=47
+factor = 8	idx = 26	l = 7	begin = 48	end=55
+factor = 8	idx = 27	l = 8	begin = 56	end=63
+CASE: multithreading	N = 64	NUM_THREADS = 8	TIME = 0.000023
+factor = 40	idx = 28	l = 1	begin = 0	end=39
+factor = 40	idx = 29	l = 2	begin = 40	end=79
+CASE: multithreading	N = 80	NUM_THREADS = 2	TIME = 0.000006
+factor = 20	idx = 30	l = 1	begin = 0	end=19
+factor = 20	idx = 31	l = 2	begin = 20	end=39
+factor = 20	idx = 32	l = 3	begin = 40	end=59
+factor = 20	idx = 33	l = 4	begin = 60	end=79
+CASE: multithreading	N = 80	NUM_THREADS = 4	TIME = 0.000012
+factor = 10	idx = 34	l = 1	begin = 0	end=9
+factor = 10	idx = 35	l = 2	begin = 10	end=19
+factor = 10	idx = 36	l = 3	begin = 20	end=29
+factor = 10	idx = 37	l = 4	begin = 30	end=39
+factor = 10	idx = 38	l = 5	begin = 40	end=49
+factor = 10	idx = 39	l = 6	begin = 50	end=59
+factor = 10	idx = 40	l = 7	begin = 60	end=69
+factor = 10	idx = 41	l = 8	begin = 70	end=79
+CASE: multithreading	N = 80	NUM_THREADS = 8	TIME = 0.000023
 FINISHED multithreading
