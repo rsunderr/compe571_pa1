@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdarg.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <stdbool.h>
+#include <math.h>
 
 /*
 N = {100000000, 1000000000, 10000000000}
@@ -9,7 +14,7 @@ NUM_TASKS = {2, 4, 8}
 */
 
 #define LEN(array) (sizeof(array) / sizeof((array)[0])) // get size of array
-#define CASE "baseline"
+#define CASE "multitasking 1"
 
 // Log outputs to terminal and add to log file
 void log_printf(FILE *log, const char *format, ...) {
