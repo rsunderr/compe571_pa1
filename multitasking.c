@@ -33,7 +33,7 @@ void log_printf(FILE *log, const char *format, ...) {
 }
 
 // Calculate the sum of variables from 0 up to N (not inclusive)
-double WORKLOAD(long start, long N) {
+double WORKLOAD(unsigned__int128 start, unsigned__int128 N) {
     double sum = 0.0; // using doubles bc long long too small
     for (long i = start; i < N; i++) {
         sum += i;
@@ -43,10 +43,10 @@ double WORKLOAD(long start, long N) {
 
 int main(void) {
     // Variables
-    long N_values[3] = {100000000L, 1000000000L, 10000000000L};
+    unsigned__int128 N_values[3] = {100000000L, 1000000000L, 10000000000L};
     int NUM_TASKS[3] = {2, 4, 8};
-    double task_res = 0.0;
-    double res = 0.0;
+    unsigned__int128 task_res = 0;
+    unsigned__int128 res = 0;
     double duration = 0.0;
     struct timespec start, end;
 
@@ -60,10 +60,11 @@ int main(void) {
     // Begin main loop
     log_printf(log, "STARTING %s\n", CASE);
     for (int j = 0; j < LEN(N_values); j++) {
+        for (int k = 0; k < LEN(NUM_TASKs){
         // Call fxn
         clock_gettime(CLOCK_MONOTONIC, &start); // get start time
 
-        int num_tasks = NUM_TASKS[j];
+        int num_tasks = NUM_TASKS[k];
         int p[2];
         if (pipe(p) == -1) {
             perror("pipe");
@@ -79,9 +80,9 @@ int main(void) {
                 return 1;
             }
             if (pid == 0) {
-                long start_boundary = (N_values[j] * i) / num_tasks;
-                long end_boundary = (N_values[j] * (i + 1)) / num_tasks;
-                double child_res = WORKLOAD(start_boundary, end_boundary);
+                unsigned__int128 start_boundary = (N_values[j] * i) / num_tasks;
+                unsigned__int128 end_boundary = (N_values[j] * (i + 1)) / num_tasks;
+                unsigned__int128 child_res = WORKLOAD(start_boundary, end_boundary);
                 close(p[0]);
                 (void)write(p[1], &child_res, sizeof(child_res));
                 close(p[1]);
@@ -90,7 +91,7 @@ int main(void) {
         }
 
         close(p[1]);
-        res = 0.0;
+        res = 0;
         while (read(p[0], &task_res, sizeof(task_res)) == sizeof(task_res)) {
             res += task_res;
         }
@@ -107,6 +108,7 @@ int main(void) {
 
         // Log results
         log_printf(log, "CASE: %s\tN = %ld\tRES = %.0f\tTIME = %lf\n", CASE, N_values[j], res, duration);
+    }
     }
 
     log_printf(log, "FINISHED %s\n", CASE);
