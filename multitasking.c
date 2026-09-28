@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdarg.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
 
 /*
 N = {100000000, 1000000000, 10000000000}
@@ -39,9 +43,8 @@ double WORKLOAD(long start, long N) {
 
 int main(void) {
     // Variables
-    long N_values[3] = {100000000, 1000000000, 10000000000};
+    long N_values[3] = {100000000L, 1000000000L, 10000000000L};
     int NUM_TASKS[3] = {2, 4, 8};
-    int max_taks = NUM_TASKS[LEN(NUM_TASKS)-1];
     double task_res = 0.0;
     double res = 0.0;
     double duration = 0.0;
@@ -60,54 +63,41 @@ int main(void) {
         // Call fxn
         clock_gettime(CLOCK_MONOTONIC, &start); // get start time
 
-        int num_times_to_fork = log2(NUM_TASKS[j]);
-        int start_number = 0;
-        int end_number = N_values[j];
-        int pids[] = zeros(num_times_to_fork);
+        int num_tasks = NUM_TASKS[j];
         int p[2];
-        bool parent = true;
-      
+        if (pipe(p) == -1) {
+            perror("pipe");
+            fclose(log);
+            return 1;
+        }
 
-        // start pipe
-        pipe(p);
-
-        // create tasks & assign boundaries
-        for (int i = 0; i < num_times_to_fork; i++){
-          pids[i] = fork();
-          
-          if (pids[i] == 0){
-            end_number = (end_number + start_number) / 2 + start_number;
-          }
-          else{
-              start_number = (end_number + start_number) / 2 + start_number;
+        for (int i = 0; i < num_tasks; i++) {
+            pid_t pid = fork();
+            if (pid == -1) {
+                perror("fork");
+                fclose(log);
+                return 1;
+            }
+            if (pid == 0) {
+                long start_boundary = (N_values[j] * i) / num_tasks;
+                long end_boundary = (N_values[j] * (i + 1)) / num_tasks;
+                double child_res = WORKLOAD(start_boundary, end_boundary);
+                close(p[0]);
+                (void)write(p[1], &child_res, sizeof(child_res));
+                close(p[1]);
+                _exit(0);
             }
         }
 
-        // calculate sum for each task
-        res = WORKLOAD(start_boundary, end_boundary);
-      
-        // close read end of pipe for all tasks that aren't the main parent
-        for (int i = 0; i < num_times_to_fork; i++){
-          if (parent && pids[i] == 0){
-            parent = false;
-            close(p[0]);
+        close(p[1]);
+        res = 0.0;
+        while (read(p[0], &task_res, sizeof(task_res)) == sizeof(task_res)) {
+            res += task_res;
         }
-
-        // close write end of pipe for parent task
-        if (parent) close(p[1]);
-          
-        // add sum to pipe and end tasks if not the original parent
-        if (!parent){
-          write(p[1], &res, sizeof(double));
-          wait();
-          return 0;
+        close(p[0]);
+        while (wait(NULL) > 0) {
+            /* Reap all child processes. */
         }
-
-        //wait until all child tasks are done, then receive all from pipe and add to main parent's segment.
-        wait();
-        while (read(p[0], task_res, sizeof(double)) > 0) {
-          res += task_res;
-               }
 
         clock_gettime(CLOCK_MONOTONIC, &end); // get end time
 
