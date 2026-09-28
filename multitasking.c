@@ -13,7 +13,7 @@ NUM_TASKS = {2, 4, 8}
 */
 
 #define LEN(array) (sizeof(array) / sizeof((array)[0])) // get size of array
-#define CASE "baseline"
+#define CASE "multitasking"
 
 // Log outputs to terminal and add to log file
 void log_printf(FILE *log, const char *format, ...) {
